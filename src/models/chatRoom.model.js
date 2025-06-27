@@ -5,6 +5,11 @@ const chatRoomSchema=new mongoose.Schema({
         type:String,
         required:true
     },
+    slug:{
+        type:String,
+        unique:true,
+        lowercase:true
+    },
     creator:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"

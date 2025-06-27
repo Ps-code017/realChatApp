@@ -83,7 +83,6 @@ const googleCallbackController=asyncHandler(async(req,res)=>{
     res.redirect(process.env.FRONTEND_REDIRECT_URI)
 })
 
-
 const logoutUser=asyncHandler(async(req,res)=>{
     await User.findByIdAndUpdate(
         req.user._id,

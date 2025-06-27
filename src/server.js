@@ -19,7 +19,7 @@ dotenv.config({
 
 io.on("connection",(socket)=>{
     try {
-        console.log("socket connected",socket.id);
+        // console.log("socket connected",socket.id);
         socketHandler(socket,io);
     } catch (err) {
         console.error("error while connecting to socket",err.message) 
