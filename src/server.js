@@ -17,14 +17,13 @@ const io=new Server(server,{
 dotenv.config({
 })
 
-io.on("connection",(socket)=>{
-    try {
-        // console.log("socket connected",socket.id);
-        socketHandler(socket,io);
-    } catch (err) {
-        console.error("error while connecting to socket",err.message) 
-    }
-})
+io.on("connection", (socket) => {
+  try {
+    socketHandler(socket, io);
+  } catch (err) {
+    console.error("Error in socketHandler:", err.message);
+  }
+});
 
 
 connectDB()

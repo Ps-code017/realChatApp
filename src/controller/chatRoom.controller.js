@@ -1,16 +1,16 @@
-import { asyncHandler } from "../utils/asyncHandler";
-import { ApiError } from "../utils/apiError";
-import { ApiResponse } from "../utils/apiResponse";
-import { ChatRoom } from "../models/chatRoom.model";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { ApiError } from "../utils/apiError.js";
+import { ApiResponse } from "../utils/apiResponse.js";
+import { ChatRoom } from "../models/chatRoom.model.js";
 import slugify from "slugify";
 
 const createRoom=asyncHandler(async(req,res)=>{
-    const name=req.body;
+    const {name}=req.body;
 
     if(!name){
         throw new ApiError(400,"give name of room")
     }
-    const slug=slugify(title)
+    const slug=slugify(name)
     const room=await ChatRoom.create({name,creator:req.user._id,slug})
 
     return res.status(200).json(new ApiResponse(200,"room created",room))

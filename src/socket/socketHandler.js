@@ -28,8 +28,9 @@ export const socketHandler=async(socket,io)=>{
     });
 
     socket.on("sendMessage",async({roomId,senderId,file,fileType,content})=>{
+        if(!content || !senderId||!content) throw new Error("all field required")
         try {
-            const message=await Message.create({chatRoom:roomId,sender:senderId,file,fileType,content})
+            const message=await Message.create({chatRoom:roomId,sender:senderId,file:file||null,fileType:fileType||null,content})
     
             const populated = await message.populate([{ path: "chatRoom", select: "name participants" },{ path: "sender", select: "name avatar" }]);
             io.to(roomId).emit("receiveMessage",populated)

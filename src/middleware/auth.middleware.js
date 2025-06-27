@@ -15,11 +15,14 @@ const verifyjwt=asyncHandler(async(req,_,next)=>{
     }catch{
         throw new ApiError(400,"token not match")
     }
+
+    // console.log(decoded_token)
     
     const user=await User.findOne({
             _id:decoded_token?._id,
-            googleId:decoded_token?.googleId
+            googleId:decoded_token?.gid
         }).select("-googleId -refreshToken")
+        // console.log(user)
         if(!user){
             throw new ApiError(401,"invalid token")
         }
