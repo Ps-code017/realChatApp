@@ -13,15 +13,13 @@ const messageSchema=new mongoose.Schema({
     content:{
         type:String
     },
-    file:[
-        {type:String}
-    ],
-    fileType:{
-        type:String
-    },
-    publicId:{
-        type:String
-    }    
+    attachments: [
+    {
+      fileUrl: { type: String, required: true },
+      fileType: { type: String, enum: ["image", "file"], required: true },
+      publicId: { type: String, required: true }
+    }
+    ]   
 },{timestamps:true})
 
 export const Message = mongoose.model("Message", messageSchema);

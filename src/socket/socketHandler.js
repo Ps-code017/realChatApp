@@ -27,16 +27,25 @@ export const socketHandler=async(socket,io)=>{
         }
     });
 
-    socket.on("sendMessage",async({roomId,senderId,file,fileType,content})=>{
-        if(!content || !senderId||!content) throw new Error("all field required")
+    socket.on("sendMessage", async ({ roomId, senderId, content, attachments }) => {
         try {
-            const message=await Message.create({chatRoom:roomId,sender:senderId,file:file||null,fileType:fileType||null,content})
-    
-            const populated = await message.populate([{ path: "chatRoom", select: "name participants" },{ path: "sender", select: "name avatar" }]);
-            io.to(roomId).emit("receiveMessage",populated)
-        } catch (error) {
+            const message = await Message.create({  
+                chatRoom: roomId,
+                sender: senderId,
+                content: content || "",
+                attachments: attachments || []
+            });
+
+            const populated = await message.populate([
+            { path: "chatRoom", select: "name participants" },
+            { path: "sender", select: "name avatar" }
+            ]);
+
+            io.to(roomId).emit("receiveMessage", populated);
+        } catch (err) {
             console.error("sendMessage error:", err.message);
-            socket.emit("errorOccurred", { message: "Failed to send message." })   
+            socket.emit("errorOccurred", { message: "Failed to send message." });
         }
-    })   
+    });
+   
 }
