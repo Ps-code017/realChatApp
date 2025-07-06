@@ -18,6 +18,7 @@ import authRouter from "./routes/auth.routes.js"
 import homeRouter from "./routes/home.route.js"
 import uploadRouter from "./routes/upload.route.js"
 import chatroomRouter from "./routes/chatRooms.routes.js"
+import chatmessageRouter from "./routes/chatMessages.route.js"
 
 
 //give path to routes app.use('/api/home',homerouter)
@@ -25,5 +26,6 @@ app.use("/api/home",homeRouter)
 app.use("/api/auth",authRouter)
 app.use("/api/upload",uploadRouter)
 app.use("/api/chatRoom",chatroomRouter)
+app.use("/api/messages",chatmessageRouter)
 
 export {app};
