@@ -40,6 +40,7 @@ export const socketHandler=async(socket,io)=>{
             { path: "chatRoom", select: "name participants" },
             { path: "sender", select: "name avatar" }
             ]);
+            console.log("msg received")
 
             io.to(roomId).emit("receiveMessage", populated);
         } catch (err) {

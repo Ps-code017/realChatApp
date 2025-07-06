@@ -1,14 +1,13 @@
 import mongoose from "mongoose";
 
 const messageSchema=new mongoose.Schema({
-    sender:{
-        unique:true,
+    sender:{ 
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     },
     chatRoom:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"chatRoom"
+        ref:"ChatRoom"
     },
     content:{
         type:String
