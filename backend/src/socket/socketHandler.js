@@ -29,6 +29,7 @@ export const socketHandler=async(socket,io)=>{
 
     socket.on("sendMessage", async ({ roomId, senderId, content, attachments }) => {
         try {
+            console.log("🟡 Received from client:", { roomId, senderId, content });
             const message = await Message.create({  
                 chatRoom: roomId,
                 sender: senderId,
@@ -36,11 +37,16 @@ export const socketHandler=async(socket,io)=>{
                 attachments: attachments || []
             });
 
+
+
             const populated = await message.populate([
             { path: "chatRoom", select: "name participants" },
             { path: "sender", select: "name avatar" }
             ]);
             console.log("msg received")
+
+            console.log("🟠 Emitting to room:", roomId, "\nMessage:", populated);
+
 
             io.to(roomId).emit("receiveMessage", populated);
         } catch (err) {
