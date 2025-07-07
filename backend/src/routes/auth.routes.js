@@ -5,7 +5,7 @@ const router=Router();
 
 router.get('/google',googleRedirectController)
 router.get("/google/callback",googleCallbackController)
-router.get("/success",authSuccess)
+router.get("/success",verifyjwt,authSuccess)
 router.post("/refresh-token",refreshAccessToken)
 router.post("/logout",verifyjwt,logoutUser)
 

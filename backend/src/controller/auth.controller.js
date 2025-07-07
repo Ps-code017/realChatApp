@@ -127,8 +127,9 @@ const refreshAccessToken=asyncHandler(async(req,res)=>{
 
 })
 
-const authSuccess=asyncHandler((req,res)=>{
-    return res.status(200).json(new ApiResponse(200,"successfull auth",{accessToken:req.cookies.accessToken}))
+const authSuccess=asyncHandler(async(req,res)=>{
+    const user=await User.findById(req.user._id).select("-refreshToken -googleId")
+    return res.status(200).json(new ApiResponse(200,"successfull auth",{accessToken:req.cookies.accessToken,user}))
 })
 
 export{
